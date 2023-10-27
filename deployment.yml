@@ -1,0 +1,21 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: quiz-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quiz-app
+  template:
+    metadata:
+      name: quizpod
+      labels:
+        app: quiz-app
+    spec: # Add "spec" under "template"
+      containers: # Indent "containers" under "spec"
+      - name: quizdockercontainer
+        image: sumitchavan0110/quizappimage:latest
+        command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+        ports:
+        - containerPort: 8000
